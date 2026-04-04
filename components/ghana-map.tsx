@@ -30,6 +30,8 @@ function GhanaMapLayer() {
   // States
   const [view, setView] = useState<"national" | "ashanti">("national");
   const [hoverInfo, setHoverInfo] = useState<HoverState | null>(null);
+  const [hoveredName, setHoveredName] = useState<string | null>(null);
+  const [selectedName, setSelectedName] = useState<string | null>(null);
   const geojsonCache = useRef<{ regions?: any, districts?: any }>({});
 
   // Layer IDs
@@ -42,6 +44,7 @@ function GhanaMapLayer() {
   const resetView = useCallback(() => {
     if (!map) return;
     setView("national");
+    setSelectedName(null);
     map.flyTo({
       center: [-1.0232, 7.9465],
       zoom: 6.2,
@@ -85,10 +88,12 @@ function GhanaMapLayer() {
     const source = type === "region" ? geojsonCache.current.regions : geojsonCache.current.districts;
     if (!source) return;
 
-    const feature = source.features.find((f: any) => 
+    const feature = source.features.find((f: any) =>
       normalizeName(f.properties.shapeName) === normalizeName(name)
     );
     if (!feature) return;
+
+    setSelectedName(feature.properties.shapeName);
 
     // Simple centroid calculation or better: find a point in the geometry
     // For now, we'll use a basic approach or if it's a district, zoom into Ashanti first
@@ -191,11 +196,20 @@ function GhanaMapLayer() {
       }
     });
 
+    // 6. Add Transition properties for animations
+    map.setPaintProperty(regionsLayerId, "fill-opacity-transition", { duration: 300 });
+    map.setPaintProperty(regionsLayerId, "fill-color-transition", { duration: 300 });
+    map.setPaintProperty(regionsOutlineId, "line-width-transition", { duration: 300 });
+    map.setPaintProperty(regionsOutlineId, "line-color-transition", { duration: 300 });
+    map.setPaintProperty(ashantiDistrictsLayerId, "fill-opacity-transition", { duration: 300 });
+    map.setPaintProperty(ashantiDistrictsLayerId, "fill-color-transition", { duration: 300 });
+
     // --- EVENT HANDLERS ---
 
     const handleMouseMove = (e: any) => {
       if (!e.features?.length) {
         setHoverInfo(null);
+        setHoveredName(null);
         map.getCanvas().style.cursor = "";
         return;
       }
@@ -203,6 +217,13 @@ function GhanaMapLayer() {
       const feature = e.features[0];
       const name = feature.properties.shapeName;
       const layerId = feature.layer.id;
+
+      // Prioritize Ashanti Districts over Ashanti Region when zoomed in
+      if (view === "ashanti" && layerId === regionsLayerId && name === "Ashanti") {
+        return;
+      }
+
+      setHoveredName(name);
 
       let stats: StatsType | undefined;
 
@@ -213,7 +234,11 @@ function GhanaMapLayer() {
         );
         stats = statsKey ? (statsData.regions as any)[statsKey] : undefined;
       } else if (layerId === ashantiDistrictsLayerId) {
-        stats = (statsData.districts as any)[name];
+        // Use normalization for districts to ensure robust matching
+        const statsKey = Object.keys(statsData.districts).find(
+          key => normalizeName(key) === normalizeName(name)
+        );
+        stats = statsKey ? (statsData.districts as any)[statsKey] : undefined;
       }
 
       if (stats) {
@@ -228,6 +253,7 @@ function GhanaMapLayer() {
 
     const handleMouseLeave = () => {
       setHoverInfo(null);
+      setHoveredName(null);
       map.getCanvas().style.cursor = "";
     };
 
@@ -276,25 +302,77 @@ function GhanaMapLayer() {
     };
   }, [map, isLoaded, regionsSourceId, regionsLayerId, regionsOutlineId, ashantiDistrictsSourceId, ashantiDistrictsLayerId, view]);
 
+  // Sync visual highlights and animations when hover or search state changes
+  useEffect(() => {
+    if (!map || !isLoaded) return;
+
+    // National Regions Highlights
+    const isHighVis = (fName: string) => fName === hoveredName || fName === selectedName;
+
+    map.setPaintProperty(regionsLayerId, "fill-color", [
+      "case",
+      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+      "#3b82f6", // Bright Blue highlight
+      ["==", ["get", "shapeName"], "Ashanti"],
+      "#3b82f6", // Ashanti default
+      "#94a3b8"  // Other default
+    ]);
+
+    map.setPaintProperty(regionsLayerId, "fill-opacity", [
+      "case",
+      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+      0.9,       // Highlighted opacity
+      view === "ashanti" ? 0.05 : [
+        "case",
+        ["==", ["get", "shapeName"], "Ashanti"],
+        0.8,
+        0.2
+      ]
+    ]);
+
+    map.setPaintProperty(regionsOutlineId, "line-width", [
+      "case",
+      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+      1,         // Bold outline
+      ["==", ["get", "shapeName"], "Ashanti"],
+      1,         // Ashanti medium outline
+      0          // Others thin outline
+    ]);
+
+    map.setPaintProperty(regionsOutlineId, "line-color", [
+      "case",
+      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+      "#ffffff", // Highlighted color
+      "#ffffff"  // Default
+    ]);
+
+    // Ashanti Districts Highlights
+    if (view === "ashanti") {
+      map.setPaintProperty(ashantiDistrictsLayerId, "fill-opacity", [
+        "case",
+        ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+        0.8,
+        0.4
+      ]);
+      map.setPaintProperty(ashantiDistrictsLayerId, "fill-color", [
+        "case",
+        ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+        "#059669", // Darker Emerald on highlight
+        "#10b981"  // Default Emerald
+      ]);
+    }
+  }, [map, isLoaded, view, hoveredName, selectedName, regionsLayerId, regionsOutlineId, ashantiDistrictsLayerId]);
+
   // Sync layer visibility when view changes
   useEffect(() => {
     if (!map || !isLoaded) return;
 
     if (view === "ashanti") {
       map.setLayoutProperty(ashantiDistrictsLayerId, "visibility", "visible");
-      // Mute national regions even more
-      map.setPaintProperty(regionsLayerId, "fill-opacity", 0.05);
     } else {
       map.setLayoutProperty(ashantiDistrictsLayerId, "visibility", "none");
-      // Restore national regions visibility
-      map.setPaintProperty(regionsLayerId, "fill-opacity", [
-        "case",
-        ["==", ["get", "shapeName"], "Ashanti"],
-        0.8,
-        0.2
-      ]);
     }
-  }, [map, isLoaded, view, ashantiDistrictsLayerId, regionsLayerId]);
+  }, [map, isLoaded, view, ashantiDistrictsLayerId]);
 
   return (
     <>
