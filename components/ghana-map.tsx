@@ -15,6 +15,8 @@ import statsData from "@/lib/data/tube-well-stats.json";
 // Types for our stats
 type StatsType = typeof statsData.regions["Ashanti"];
 
+const normalizeName = (name: string) => name.replace(/\s+/g, "").toLowerCase();
+
 interface HoverState {
   name: string;
   stats: StatsType;
@@ -28,6 +30,7 @@ function GhanaMapLayer() {
   // States
   const [view, setView] = useState<"national" | "ashanti">("national");
   const [hoverInfo, setHoverInfo] = useState<HoverState | null>(null);
+  const geojsonCache = useRef<{ regions?: any, districts?: any }>({});
 
   // Layer IDs
   const regionsSourceId = `regions-src-${id}`;
@@ -46,6 +49,77 @@ function GhanaMapLayer() {
       pitch: 0,
       bearing: 0
     });
+  }, [map]);
+
+  // Load GeoJSON data for programmatic access (search zoom)
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [regionsRes, districtsRes] = await Promise.all([
+          fetch("/ghana-regions.geojson"),
+          fetch("/ashanti-districts.geojson")
+        ]);
+        geojsonCache.current.regions = await regionsRes.json();
+        geojsonCache.current.districts = await districtsRes.json();
+      } catch (err) {
+        console.error("Failed to load GeoJSON data for search:", err);
+      }
+    };
+    loadData();
+  }, []);
+
+  const handleLocationSelect = useCallback((name: string, type: "region" | "district") => {
+    if (!map) return;
+
+    if (name === "Ashanti") {
+      setView("ashanti");
+      map.flyTo({
+        center: [-1.6701, 6.7470],
+        zoom: 8.5,
+        duration: 1500,
+        pitch: 20
+      });
+      return;
+    }
+
+    const source = type === "region" ? geojsonCache.current.regions : geojsonCache.current.districts;
+    if (!source) return;
+
+    const feature = source.features.find((f: any) => 
+      normalizeName(f.properties.shapeName) === normalizeName(name)
+    );
+    if (!feature) return;
+
+    // Simple centroid calculation or better: find a point in the geometry
+    // For now, we'll use a basic approach or if it's a district, zoom into Ashanti first
+    if (type === "district") {
+      setView("ashanti");
+    }
+
+    // Handle MultiPolygon/Polygon coordinates for a rough center
+    let coords: [number, number][] = [];
+    if (feature.geometry.type === "Polygon") {
+      coords = feature.geometry.coordinates[0];
+    } else if (feature.geometry.type === "MultiPolygon") {
+      coords = feature.geometry.coordinates[0][0];
+    }
+
+    if (coords.length > 0) {
+      // Calculate bbox
+      let minLng = coords[0][0], maxLng = coords[0][0];
+      let minLat = coords[0][1], maxLat = coords[0][1];
+      coords.forEach(([lng, lat]) => {
+        minLng = Math.min(minLng, lng);
+        maxLng = Math.max(maxLng, lng);
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
+      });
+
+      map.fitBounds([minLng, minLat, maxLng, maxLat], {
+        padding: 100,
+        duration: 1500
+      });
+    }
   }, [map]);
 
   useEffect(() => {
@@ -133,7 +207,11 @@ function GhanaMapLayer() {
       let stats: StatsType | undefined;
 
       if (layerId === regionsLayerId) {
-        stats = (statsData.regions as any)[name];
+        // Find the stats key that matches the normalized name
+        const statsKey = Object.keys(statsData.regions).find(
+          key => normalizeName(key) === normalizeName(name)
+        );
+        stats = statsKey ? (statsData.regions as any)[statsKey] : undefined;
       } else if (layerId === ashantiDistrictsLayerId) {
         stats = (statsData.districts as any)[name];
       }
@@ -220,7 +298,11 @@ function GhanaMapLayer() {
 
   return (
     <>
-      <MapSidebar onResetView={resetView} selectedName={hoverInfo?.name || null} />
+      <MapSidebar
+        onResetView={resetView}
+        onLocationSelect={handleLocationSelect}
+        selectedName={hoverInfo?.name || null}
+      />
       <MapLegend />
 
       {hoverInfo && (
@@ -245,8 +327,8 @@ export function GhanaTubeWellMap() {
     <div className="absolute inset-0 overflow-hidden bg-background">
       <Map
         center={[-1.0232, 7.9465]}
-        zoom={6.2}
-        minZoom={5}
+        zoom={6.5}
+        minZoom={6.5}
         maxZoom={12}
         className="h-full w-full"
       >
@@ -257,7 +339,7 @@ export function GhanaTubeWellMap() {
           showCompass
           showLocate
           showFullscreen
-          className="bottom-4 right-4"
+        // className="bottom-4 right-4"
         />
       </Map>
     </div>
