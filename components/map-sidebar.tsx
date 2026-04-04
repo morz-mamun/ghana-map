@@ -118,7 +118,7 @@ export function MapSidebar({ onResetView, onLocationSelect, selectedName }: Side
             <div className="flex flex-col gap-1 px-1">
               <div className="flex items-start gap-3 p-2 rounded-md hover:bg-muted/50 text-sm">
                 <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />
-                <span>Hover over any region to see quick stats.</span>
+                <span>Hover over <strong className="text-primary font-semibold">Ashanti</strong> to see quick stats, or other regions for names.</span>
               </div>
               <div className="flex items-start gap-3 p-2 rounded-md hover:bg-muted/50 text-sm">
                 <ChevronRight className="h-4 w-4 mt-0.5 text-primary" />

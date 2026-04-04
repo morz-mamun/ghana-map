@@ -19,7 +19,7 @@ const normalizeName = (name: string) => name.replace(/\s+/g, "").toLowerCase();
 
 interface HoverState {
   name: string;
-  stats: StatsType;
+  stats?: StatsType;
   coordinates: [number, number];
 }
 
@@ -225,30 +225,33 @@ function GhanaMapLayer() {
 
       setHoveredName(name);
 
+      let statsKey: string | undefined;
       let stats: StatsType | undefined;
 
       if (layerId === regionsLayerId) {
-        // Find the stats key that matches the normalized name
-        const statsKey = Object.keys(statsData.regions).find(
+        // Find the formatted name (with spaces) for the region
+        statsKey = Object.keys(statsData.regions).find(
           key => normalizeName(key) === normalizeName(name)
         );
-        stats = statsKey ? (statsData.regions as any)[statsKey] : undefined;
+        
+        // Only show statistics for Ashanti region
+        if (name === "Ashanti") {
+          stats = statsKey ? (statsData.regions as any)[statsKey] : undefined;
+        }
       } else if (layerId === ashantiDistrictsLayerId) {
-        // Use normalization for districts to ensure robust matching
-        const statsKey = Object.keys(statsData.districts).find(
+        // Find the formatted name (with spaces) for the district
+        statsKey = Object.keys(statsData.districts).find(
           key => normalizeName(key) === normalizeName(name)
         );
         stats = statsKey ? (statsData.districts as any)[statsKey] : undefined;
       }
 
-      if (stats) {
-        setHoverInfo({
-          name,
-          stats,
-          coordinates: [e.lngLat.lng, e.lngLat.lat]
-        });
-        map.getCanvas().style.cursor = "pointer";
-      }
+      setHoverInfo({
+        name: statsKey || name, // Use formatted name (with spaces) if available
+        stats,
+        coordinates: [e.lngLat.lng, e.lngLat.lat]
+      });
+      map.getCanvas().style.cursor = "pointer";
     };
 
     const handleMouseLeave = () => {
