@@ -52,15 +52,15 @@ export function MapSidebar({ onResetView, onLocationSelect, selectedName }: Side
       <div className="relative mt-4">
         <div className="relative group">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary" />
-          <input 
-            type="text" 
-            placeholder="Search regions or districts..." 
+          <input
+            type="text"
+            placeholder="Search regions or districts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full rounded-lg border bg-background/50 py-2.5 pl-9 pr-9 text-sm outline-none ring-primary/20 transition-all focus:ring-2 focus:border-primary/50"
           />
           {searchQuery && (
-            <button 
+            <button
               onClick={() => setSearchQuery("")}
               className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-full hover:bg-muted text-muted-foreground"
             >
@@ -96,7 +96,7 @@ export function MapSidebar({ onResetView, onLocationSelect, selectedName }: Side
 
       <div className="flex-1 overflow-y-auto pr-1">
         <div className="mt-4 space-y-4">
-          <div className="rounded-lg bg-muted/40 p-4 border border-border">
+          {/* <div className="rounded-lg bg-muted/40 p-4 border border-border">
             <h3 className="text-sm font-bold flex items-center gap-2">
               <Info className="h-4 w-4 text-primary" />
               Summary Overview
@@ -104,14 +104,7 @@ export function MapSidebar({ onResetView, onLocationSelect, selectedName }: Side
             <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
               Tracking 16 regions across Ghana. Current focus: <strong className="text-foreground">Ashanti Region</strong> and its 43 districts.
             </p>
-          </div>
-
-          {selectedName && (
-            <div className="rounded-lg bg-primary/5 p-4 border border-primary/20 animate-in fade-in slide-in-from-left-2 duration-300">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">Selected</span>
-              <h3 className="text-lg font-bold">{selectedName}</h3>
-            </div>
-          )}
+          </div> */}
 
           <div className="space-y-1">
             <h4 className="px-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">Instructions</h4>
@@ -130,12 +123,19 @@ export function MapSidebar({ onResetView, onLocationSelect, selectedName }: Side
               </div>
             </div>
           </div>
+
+          {selectedName && (
+            <div className="rounded-lg bg-primary/5 p-4 border border-primary/20 animate-in fade-in slide-in-from-left-2 duration-300">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">Selected</span>
+              <h3 className="text-lg font-bold">{selectedName}</h3>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="mt-auto space-y-2 pt-4 border-t">
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="w-full justify-start gap-2 h-10 border-dashed"
           onClick={onResetView}
         >
