@@ -40,6 +40,7 @@ function GhanaMapLayer() {
   const ashantiDistrictsSourceId = `districts-src-${id}`;
   const ashantiDistrictsLayerId = `districts-layer-${id}`;
   const regionsOutlineId = `regions-outline-${id}`;
+  const regionsLabelsLayerId = `regions-labels-layer-${id}`;
 
   const resetView = useCallback(() => {
     if (!map) return;
@@ -159,9 +160,28 @@ function GhanaMapLayer() {
           "case",
           ["==", ["get", "shapeName"], "Ashanti"],
           0.8,
-          0.2
+          0.1
         ],
       },
+    });
+
+    // 4. Region Labels Layer (Static)
+    map.addLayer({
+      id: regionsLabelsLayerId,
+      type: "symbol",
+      source: regionsSourceId,
+      layout: {
+        "text-field": ["get", "shapeName"],
+        "text-size": 12,
+        "text-offset": [0, 0.5],
+        "text-anchor": "top",
+        "text-allow-overlap": false
+      },
+      paint: {
+        "text-color": "#ffffff",
+        "text-halo-color": "rgba(255, 255, 255, 0.8)",
+        "text-halo-width": 1
+      }
     });
 
     // 4. Regions Outline
@@ -223,8 +243,6 @@ function GhanaMapLayer() {
         return;
       }
 
-      setHoveredName(name);
-
       let statsKey: string | undefined;
       let stats: StatsType | undefined;
 
@@ -233,10 +251,23 @@ function GhanaMapLayer() {
         statsKey = Object.keys(statsData.regions).find(
           key => normalizeName(key) === normalizeName(name)
         );
-        
-        // Only show statistics for Ashanti region
+
+        // Only show statistics and highlight for Ashanti region
         if (name === "Ashanti") {
           stats = statsKey ? (statsData.regions as any)[statsKey] : undefined;
+          setHoveredName(name);
+
+          setHoverInfo({
+            name: statsKey || name, // Use formatted name (with spaces) if available
+            stats,
+            coordinates: [e.lngLat.lng, e.lngLat.lat]
+          });
+          map.getCanvas().style.cursor = "pointer";
+        } else {
+          // For other regions, no popup and no hover highlight
+          setHoveredName(null);
+          setHoverInfo(null);
+          map.getCanvas().style.cursor = "default";
         }
       } else if (layerId === ashantiDistrictsLayerId) {
         // Find the formatted name (with spaces) for the district
@@ -244,14 +275,15 @@ function GhanaMapLayer() {
           key => normalizeName(key) === normalizeName(name)
         );
         stats = statsKey ? (statsData.districts as any)[statsKey] : undefined;
-      }
 
-      setHoverInfo({
-        name: statsKey || name, // Use formatted name (with spaces) if available
-        stats,
-        coordinates: [e.lngLat.lng, e.lngLat.lat]
-      });
-      map.getCanvas().style.cursor = "pointer";
+        setHoveredName(name);
+        setHoverInfo({
+          name: statsKey || name, // Use formatted name (with spaces) if available
+          stats,
+          coordinates: [e.lngLat.lng, e.lngLat.lat]
+        });
+        map.getCanvas().style.cursor = "pointer";
+      }
     };
 
     const handleMouseLeave = () => {
@@ -294,6 +326,7 @@ function GhanaMapLayer() {
       map.off("mouseleave", ashantiDistrictsLayerId, handleMouseLeave);
 
       try {
+        if (map.getLayer(regionsLabelsLayerId)) map.removeLayer(regionsLabelsLayerId);
         if (map.getLayer(regionsLayerId)) map.removeLayer(regionsLayerId);
         if (map.getLayer(regionsOutlineId)) map.removeLayer(regionsOutlineId);
         if (map.getLayer(ashantiDistrictsLayerId)) map.removeLayer(ashantiDistrictsLayerId);
@@ -303,7 +336,7 @@ function GhanaMapLayer() {
         console.warn("Cleanup error:", err);
       }
     };
-  }, [map, isLoaded, regionsSourceId, regionsLayerId, regionsOutlineId, ashantiDistrictsSourceId, ashantiDistrictsLayerId, view]);
+  }, [map, isLoaded, regionsSourceId, regionsLayerId, regionsOutlineId, ashantiDistrictsSourceId, ashantiDistrictsLayerId, regionsLabelsLayerId, view]);
 
   // Sync visual highlights and animations when hover or search state changes
   useEffect(() => {
@@ -315,7 +348,12 @@ function GhanaMapLayer() {
     map.setPaintProperty(regionsLayerId, "fill-color", [
       "case",
       ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
-      "#3b82f6", // Bright Blue highlight
+      [
+        "case",
+        ["==", ["get", "shapeName"], "Ashanti"],
+        "#3b82f6", // Ashanti highlight
+        "#94a3b8"  // Other regions - keep original color even when hovered
+      ],
       ["==", ["get", "shapeName"], "Ashanti"],
       "#3b82f6", // Ashanti default
       "#94a3b8"  // Other default
@@ -323,23 +361,21 @@ function GhanaMapLayer() {
 
     map.setPaintProperty(regionsLayerId, "fill-opacity", [
       "case",
-      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
-      0.9,       // Highlighted opacity
-      view === "ashanti" ? 0.05 : [
+      ["==", ["get", "shapeName"], "Ashanti"],
+      [
         "case",
-        ["==", ["get", "shapeName"], "Ashanti"],
-        0.8,
-        0.2
-      ]
+        ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
+        0.9,       // Ashanti highlighted
+        view === "ashanti" ? 0.05 : 0.8  // Ashanti default OR faded if in Ashanti view
+      ],
+      0.15 // Other regions (static)
     ]);
 
     map.setPaintProperty(regionsOutlineId, "line-width", [
       "case",
-      ["any", ["==", ["get", "shapeName"], selectedName || ""], ["==", ["get", "shapeName"], hoveredName || ""]],
-      1,         // Bold outline
       ["==", ["get", "shapeName"], "Ashanti"],
-      1,         // Ashanti medium outline
-      0          // Others thin outline
+      1,
+      0.5 // Thin outline for geographic context
     ]);
 
     map.setPaintProperty(regionsOutlineId, "line-color", [
@@ -372,10 +408,12 @@ function GhanaMapLayer() {
 
     if (view === "ashanti") {
       map.setLayoutProperty(ashantiDistrictsLayerId, "visibility", "visible");
+      map.setLayoutProperty(regionsLabelsLayerId, "visibility", "none");
     } else {
       map.setLayoutProperty(ashantiDistrictsLayerId, "visibility", "none");
+      map.setLayoutProperty(regionsLabelsLayerId, "visibility", "visible");
     }
-  }, [map, isLoaded, view, ashantiDistrictsLayerId]);
+  }, [map, isLoaded, view, ashantiDistrictsLayerId, regionsLabelsLayerId]);
 
   return (
     <>
