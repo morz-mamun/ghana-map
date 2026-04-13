@@ -1,4 +1,171 @@
 {
+  "wells": [
+    {
+      "id": "well-001",
+      "title": "Rebuild the Well completely",
+      "address": "14, Afia Lane, Kumasi, Ashanti",
+      "coordinates": [-1.6232, 6.6885],
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 8,
+      "peopleInNeed": 450,
+      "status": "needed"
+    },
+    {
+      "id": "well-002",
+      "title": "Repair Pump & Casing",
+      "address": "24, Park House Street, Ashanti",
+      "coordinates": [-1.5901, 6.7420],
+      "ongoing": 1,
+      "needed": 3,
+      "completed": 10,
+      "peopleInNeed": 320,
+      "status": "ongoing"
+    },
+    {
+      "id": "well-003",
+      "title": "Bore New Well",
+      "address": "Obuasi East Community, Ashanti",
+      "coordinates": [-1.6750, 6.2150],
+      "ongoing": 0,
+      "needed": 4,
+      "completed": 38,
+      "peopleInNeed": 110,
+      "status": "completed"
+    },
+    {
+      "id": "well-004",
+      "title": "Replace Hand Pump",
+      "address": "Ejisu Market Area, Ashanti",
+      "coordinates": [-1.4650, 6.7280],
+      "ongoing": 1,
+      "needed": 3,
+      "completed": 25,
+      "peopleInNeed": 280,
+      "status": "ongoing"
+    },
+    {
+      "id": "well-005",
+      "title": "Restore Collapsed Well",
+      "address": "Amansie West District, Ashanti",
+      "coordinates": [-1.8900, 6.2500],
+      "ongoing": 2,
+      "needed": 20,
+      "completed": 10,
+      "peopleInNeed": 1400,
+      "status": "needed"
+    },
+    {
+      "id": "well-006",
+      "title": "Depth Rehabilitation",
+      "address": "Mampong North, Ashanti",
+      "coordinates": [-1.4020, 7.0650],
+      "ongoing": 2,
+      "needed": 10,
+      "completed": 18,
+      "peopleInNeed": 720,
+      "status": "ongoing"
+    },
+    {
+      "id": "well-007",
+      "title": "Install New Borehole",
+      "address": "Offinso North Area, Ashanti",
+      "coordinates": [-1.7220, 7.3920],
+      "ongoing": 3,
+      "needed": 18,
+      "completed": 8,
+      "peopleInNeed": 1150,
+      "status": "needed"
+    },
+    {
+      "id": "well-008",
+      "title": "Motor Pump Replacement",
+      "address": "Bekwai Township, Ashanti",
+      "coordinates": [-1.5760, 6.4580],
+      "ongoing": 2,
+      "needed": 4,
+      "completed": 22,
+      "peopleInNeed": 350,
+      "status": "completed"
+    },
+    {
+      "id": "well-009",
+      "title": "Well Casing & Lining",
+      "address": "Sekyere Central, Ashanti",
+      "coordinates": [-1.2850, 7.1640],
+      "ongoing": 1,
+      "needed": 20,
+      "completed": 7,
+      "peopleInNeed": 1450,
+      "status": "needed"
+    },
+    {
+      "id": "well-010",
+      "title": "Solar Pump Installation",
+      "address": "Kwabre East District, Ashanti",
+      "coordinates": [-1.5420, 6.8920],
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 20,
+      "peopleInNeed": 380,
+      "status": "completed"
+    },
+    {
+      "id": "well-011",
+      "title": "Filter & Purification Unit",
+      "address": "Asante-Akim North, Ashanti",
+      "coordinates": [-1.2380, 6.6950],
+      "ongoing": 2,
+      "needed": 6,
+      "completed": 9,
+      "peopleInNeed": 480,
+      "status": "ongoing"
+    },
+    {
+      "id": "well-012",
+      "title": "Community Borehole Repair",
+      "address": "Bosomtwe Lake Area, Ashanti",
+      "coordinates": [-1.4100, 6.5020],
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 18,
+      "peopleInNeed": 410,
+      "status": "completed"
+    },
+    {
+      "id": "well-013",
+      "title": "Pipe Replacement & Flush",
+      "address": "Atwima-Mponua District, Ashanti",
+      "coordinates": [-1.8600, 6.7800],
+      "ongoing": 8,
+      "needed": 25,
+      "completed": 10,
+      "peopleInNeed": 1800,
+      "status": "needed"
+    },
+    {
+      "id": "well-014",
+      "title": "Borehole Deepening",
+      "address": "Adansi North, Ashanti",
+      "coordinates": [-1.5680, 6.0850],
+      "ongoing": 3,
+      "needed": 4,
+      "completed": 12,
+      "peopleInNeed": 380,
+      "status": "ongoing"
+    },
+    {
+      "id": "well-015",
+      "title": "Emergency Well Restoration",
+      "address": "Sekyere Afram Plains, Ashanti",
+      "coordinates": [-1.0490, 7.3800],
+      "ongoing": 2,
+      "needed": 30,
+      "completed": 5,
+      "peopleInNeed": 2100,
+      "status": "needed"
+    }
+  ],
   "regions": {
     "Ahafo": { "ongoing": 5, "needed": 12, "completed": 20, "peopleInNeed": 1200 },
     "Ashanti": { "ongoing": 25, "needed": 45, "completed": 85, "peopleInNeed": 5400 },
