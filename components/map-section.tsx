@@ -10,6 +10,21 @@ import {
 import { cn } from "@/lib/utils";
 import wellData from "@/lib/data/tube-well-stats.json";
 
+// Minimal MapLibre style that only shows a solid background
+const MINIMAL_MAP_STYLE = {
+  version: 8,
+  sources: {},
+  layers: [
+    {
+      id: "background",
+      type: "background",
+      paint: {
+        "background-color": "#ffffff",
+      },
+    },
+  ],
+};
+
 interface WellPoint {
   id: string;
   title: string;
@@ -82,6 +97,9 @@ function CustomMapLayer() {
     const fillLayerId = `regions-fill-${id}`;
     const lineLayerId = `regions-line-${id}`;
     const labelsLayerId = `regions-labels-${id}`;
+
+    // Set default cursor to arrow instead of grab since pan is disabled
+    map.getCanvas().style.cursor = "default";
 
     // Add regions source
     if (!map.getSource(sourceId)) {
@@ -245,7 +263,7 @@ export function MapSection() {
           </div>
 
           {/* Center Column: The Map */}
-          <div className="lg:col-span-6 h-[700px] relative border-2">
+          <div className="lg:col-span-6 h-[700px] relative">
             <Map
               center={[-1.0232, 7.9465]}
               zoom={6.2}
@@ -257,6 +275,10 @@ export function MapSection() {
               touchZoomRotate={false}
               keyboard={false}
               className="h-full w-full"
+              styles={{
+                light: MINIMAL_MAP_STYLE as any,
+                dark: MINIMAL_MAP_STYLE as any,
+              }}
             >
               <CustomMapLayer />
             </Map>
