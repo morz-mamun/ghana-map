@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen w-full overflow-y-auto">
       <div className="relative h-screen w-full border-b">
-        {/* <GhanaTubeWellMap /> */}
+        <GhanaTubeWellMap />
       </div>
       <MapSection />
     </main>
