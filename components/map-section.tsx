@@ -3,10 +3,10 @@
 import React, { useId, useEffect } from "react";
 import { Map, MapMarker, MarkerContent, useMap } from "./ui/map";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "./ui/hover-card";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "./ui/popover";
 import { cn } from "@/lib/utils";
 import wellData from "@/lib/data/tube-well-stats.json";
 
@@ -83,6 +83,113 @@ function LocationPin({ color }: { color: string }) {
       />
       <circle cx="14" cy="13" r="5" fill="white" />
     </svg>
+  );
+}
+
+function WellMarker({ well }: { well: WellPoint }) {
+  const [open, setOpen] = React.useState(false);
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  const handleEnter = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setOpen(true);
+  };
+
+  const handleLeave = () => {
+    timerRef.current = setTimeout(() => {
+      setOpen(false);
+    }, 300);
+  };
+
+  return (
+    <MapMarker
+      longitude={well.coordinates[0]}
+      latitude={well.coordinates[1]}
+    >
+      <MarkerContent>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <div
+              className="cursor-pointer"
+              onMouseEnter={handleEnter}
+              onMouseLeave={handleLeave}
+              onPointerDown={(e) => e.preventDefault()}
+            >
+              <LocationPin color={statusColors[well.status] ?? "#6B7280"} />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent
+            side="top"
+            align="center"
+            sideOffset={12}
+            className="p-0! border-0! shadow-2xl! rounded-2xl! overflow-hidden w-fit!"
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
+          >
+            <div className="p-3 flex flex-col gap-2 bg-white min-w-[220px]">
+              {/* Status badge */}
+              <span
+                className="text-xs font-semibold px-2 py-0.5 rounded-full w-fit"
+                style={{
+                  backgroundColor: (statusColors[well.status] ?? "#6B7280") + "20",
+                  color: statusColors[well.status] ?? "#6B7280",
+                }}
+              >
+                {statusLabels[well.status] ?? well.status}
+              </span>
+
+              {/* Title & address */}
+              <div className="space-y-0.5">
+                <h4 className="font-bold text-gray-900 text-base leading-tight">
+                  {well.title}
+                </h4>
+                <p className="text-gray-500 text-xs">{well.address}</p>
+              </div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-3 gap-2 pt-1 border-t border-gray-100">
+                <div className="flex flex-col items-center">
+                  <span className="text-sm font-bold text-amber-500">
+                    {well.ongoing}
+                  </span>
+                  <span className="text-[10px] text-gray-400 leading-tight text-center">
+                    Ongoing
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-sm font-bold text-[#E11D48]">
+                    {well.needed}
+                  </span>
+                  <span className="text-[10px] text-gray-400 leading-tight text-center">
+                    Needed
+                  </span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-sm font-bold text-emerald-500">
+                    {well.completed}
+                  </span>
+                  <span className="text-[10px] text-gray-400 leading-tight text-center">
+                    Done
+                  </span>
+                </div>
+              </div>
+
+              {/* People in need */}
+              <p className="text-[10px] text-gray-400 pt-0.5">
+                👥{" "}<span className="font-semibold text-gray-600">
+                  {well.peopleInNeed.toLocaleString()}
+                </span>{" "}people in need
+              </p>
+
+              {/* Show video CTA */}
+              <button className="text-[#E11D48] font-semibold text-xs flex items-center gap-1 hover:underline w-fit">
+                ▶ Show video
+              </button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </MarkerContent>
+    </MapMarker>
   );
 }
 
@@ -167,79 +274,10 @@ function CustomMapLayer() {
   return (
     <>
       {/* Location pin markers for each well */}
-      {isLoaded && (wellData.wells as WellPoint[]).map((well) => (
-        <MapMarker
-          key={well.id}
-          longitude={well.coordinates[0]}
-          latitude={well.coordinates[1]}
-          anchor="bottom"
-        >
-          <MarkerContent>
-            <HoverCard openDelay={0} closeDelay={150}>
-              <HoverCardTrigger asChild>
-                <div className="cursor-pointer">
-                  <LocationPin color={statusColors[well.status] ?? "#6B7280"} />
-                </div>
-              </HoverCardTrigger>
-              <HoverCardContent
-                side="top"
-                align="center"
-                sideOffset={1}
-                className="p-0! border-0! shadow-2xl! rounded-2xl! overflow-hidden w-fit"
-              >
-                <div className="p-3 flex flex-col gap-2 bg-white min-w-[220px]">
-                  {/* Status badge */}
-                  <span
-                    className="text-xs font-semibold px-2 py-0.5 rounded-full w-fit"
-                    style={{
-                      backgroundColor: (statusColors[well.status] ?? "#6B7280") + "20",
-                      color: statusColors[well.status] ?? "#6B7280",
-                    }}
-                  >
-                    {statusLabels[well.status] ?? well.status}
-                  </span>
-
-                  {/* Title & address */}
-                  <div className="space-y-0.5">
-                    <h4 className="font-bold text-gray-900 text-base leading-tight">
-                      {well.title}
-                    </h4>
-                    <p className="text-gray-500 text-xs">
-                      {well.address}
-                    </p>
-                  </div>
-
-                  {/* Stats row */}
-                  <div className="grid grid-cols-3 gap-2 pt-1 border-t border-gray-100">
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-bold text-amber-500">{well.ongoing}</span>
-                      <span className="text-[10px] text-gray-400 leading-tight text-center">Ongoing</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-bold text-[#E11D48]">{well.needed}</span>
-                      <span className="text-[10px] text-gray-400 leading-tight text-center">Needed</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <span className="text-sm font-bold text-emerald-500">{well.completed}</span>
-                      <span className="text-[10px] text-gray-400 leading-tight text-center">Done</span>
-                    </div>
-                  </div>
-
-                  {/* People in need */}
-                  <p className="text-[10px] text-gray-400 pt-0.5">
-                    👥 <span className="font-semibold text-gray-600">{well.peopleInNeed.toLocaleString()}</span> people in need
-                  </p>
-
-                  {/* Show video CTA */}
-                  <button className="text-[#E11D48] font-semibold text-xs flex items-center gap-1 hover:underline w-fit">
-                    ▶ Show video
-                  </button>
-                </div>
-              </HoverCardContent>
-            </HoverCard>
-          </MarkerContent>
-        </MapMarker>
-      ))}
+      {isLoaded &&
+        (wellData.wells as WellPoint[]).map((well) => (
+          <WellMarker key={well.id} well={well} />
+        ))}
     </>
   );
 }
@@ -267,13 +305,13 @@ export function MapSection() {
             <Map
               center={[-1.0232, 7.9465]}
               zoom={6.2}
-              interactive={true}
-              dragPan={false}
-              scrollZoom={false}
-              doubleClickZoom={false}
-              dragRotate={false}
-              touchZoomRotate={false}
-              keyboard={false}
+              interactive={false}
+              // dragPan={false}
+              // scrollZoom={false}
+              // doubleClickZoom={false}
+              // dragRotate={false}
+              // touchZoomRotate={false}
+              // keyboard={false}
               className="h-full w-full"
               styles={{
                 light: MINIMAL_MAP_STYLE as any,

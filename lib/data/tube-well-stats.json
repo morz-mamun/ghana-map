@@ -4,7 +4,10 @@
       "id": "well-001",
       "title": "Rebuild the Well completely",
       "address": "14, Afia Lane, Kumasi, Ashanti",
-      "coordinates": [-1.6232, 6.6885],
+      "coordinates": [
+        -1.6232,
+        6.6885
+      ],
       "ongoing": 2,
       "needed": 5,
       "completed": 8,
@@ -15,7 +18,10 @@
       "id": "well-002",
       "title": "Repair Pump & Casing",
       "address": "24, Park House Street, Ashanti",
-      "coordinates": [-1.5901, 6.7420],
+      "coordinates": [
+        -1.5901,
+        6.7420
+      ],
       "ongoing": 1,
       "needed": 3,
       "completed": 10,
@@ -26,7 +32,10 @@
       "id": "well-003",
       "title": "Bore New Well",
       "address": "Obuasi East Community, Ashanti",
-      "coordinates": [-1.6750, 6.2150],
+      "coordinates": [
+        -1.6750,
+        6.2150
+      ],
       "ongoing": 0,
       "needed": 4,
       "completed": 38,
@@ -37,7 +46,10 @@
       "id": "well-004",
       "title": "Replace Hand Pump",
       "address": "Ejisu Market Area, Ashanti",
-      "coordinates": [-1.4650, 6.7280],
+      "coordinates": [
+        -1.4650,
+        6.7280
+      ],
       "ongoing": 1,
       "needed": 3,
       "completed": 25,
@@ -48,7 +60,10 @@
       "id": "well-005",
       "title": "Restore Collapsed Well",
       "address": "Amansie West District, Ashanti",
-      "coordinates": [-1.8900, 6.2500],
+      "coordinates": [
+        -1.8900,
+        6.2500
+      ],
       "ongoing": 2,
       "needed": 20,
       "completed": 10,
@@ -59,7 +74,10 @@
       "id": "well-006",
       "title": "Depth Rehabilitation",
       "address": "Mampong North, Ashanti",
-      "coordinates": [-1.4020, 7.0650],
+      "coordinates": [
+        -1.4020,
+        7.0650
+      ],
       "ongoing": 2,
       "needed": 10,
       "completed": 18,
@@ -70,7 +88,10 @@
       "id": "well-007",
       "title": "Install New Borehole",
       "address": "Offinso North Area, Ashanti",
-      "coordinates": [-1.7220, 7.3920],
+      "coordinates": [
+        -1.6220,
+        6.3920
+      ],
       "ongoing": 3,
       "needed": 18,
       "completed": 8,
@@ -81,7 +102,10 @@
       "id": "well-008",
       "title": "Motor Pump Replacement",
       "address": "Bekwai Township, Ashanti",
-      "coordinates": [-1.5760, 6.4580],
+      "coordinates": [
+        -1.5760,
+        6.4580
+      ],
       "ongoing": 2,
       "needed": 4,
       "completed": 22,
@@ -92,7 +116,10 @@
       "id": "well-009",
       "title": "Well Casing & Lining",
       "address": "Sekyere Central, Ashanti",
-      "coordinates": [-1.2850, 7.1640],
+      "coordinates": [
+        -1.2850,
+        7.1640
+      ],
       "ongoing": 1,
       "needed": 20,
       "completed": 7,
@@ -103,7 +130,10 @@
       "id": "well-010",
       "title": "Solar Pump Installation",
       "address": "Kwabre East District, Ashanti",
-      "coordinates": [-1.5420, 6.8920],
+      "coordinates": [
+        -1.5420,
+        6.8920
+      ],
       "ongoing": 2,
       "needed": 5,
       "completed": 20,
@@ -114,7 +144,10 @@
       "id": "well-011",
       "title": "Filter & Purification Unit",
       "address": "Asante-Akim North, Ashanti",
-      "coordinates": [-1.2380, 6.6950],
+      "coordinates": [
+        -1.2380,
+        6.6950
+      ],
       "ongoing": 2,
       "needed": 6,
       "completed": 9,
@@ -125,7 +158,10 @@
       "id": "well-012",
       "title": "Community Borehole Repair",
       "address": "Bosomtwe Lake Area, Ashanti",
-      "coordinates": [-1.4100, 6.5020],
+      "coordinates": [
+        -1.4100,
+        6.5020
+      ],
       "ongoing": 2,
       "needed": 5,
       "completed": 18,
@@ -136,7 +172,10 @@
       "id": "well-013",
       "title": "Pipe Replacement & Flush",
       "address": "Atwima-Mponua District, Ashanti",
-      "coordinates": [-1.8600, 6.7800],
+      "coordinates": [
+        -1.8600,
+        6.7800
+      ],
       "ongoing": 8,
       "needed": 25,
       "completed": 10,
@@ -147,7 +186,10 @@
       "id": "well-014",
       "title": "Borehole Deepening",
       "address": "Adansi North, Ashanti",
-      "coordinates": [-1.5680, 6.0850],
+      "coordinates": [
+        -1.5680,
+        6.0850
+      ],
       "ongoing": 3,
       "needed": 4,
       "completed": 12,
@@ -158,7 +200,10 @@
       "id": "well-015",
       "title": "Emergency Well Restoration",
       "address": "Sekyere Afram Plains, Ashanti",
-      "coordinates": [-1.0490, 7.3800],
+      "coordinates": [
+        -1.0490,
+        7.3800
+      ],
       "ongoing": 2,
       "needed": 30,
       "completed": 5,
@@ -167,66 +212,361 @@
     }
   ],
   "regions": {
-    "Ahafo": { "ongoing": 5, "needed": 12, "completed": 20, "peopleInNeed": 1200 },
-    "Ashanti": { "ongoing": 25, "needed": 45, "completed": 85, "peopleInNeed": 5400 },
-    "Bono": { "ongoing": 8, "needed": 15, "completed": 32, "peopleInNeed": 2100 },
-    "Bono East": { "ongoing": 4, "needed": 18, "completed": 15, "peopleInNeed": 2500 },
-    "Central": { "ongoing": 12, "needed": 22, "completed": 45, "peopleInNeed": 3200 },
-    "Eastern": { "ongoing": 15, "needed": 30, "completed": 50, "peopleInNeed": 4100 },
-    "Greater Accra": { "ongoing": 20, "needed": 10, "completed": 110, "peopleInNeed": 800 },
-    "North East": { "ongoing": 3, "needed": 25, "completed": 10, "peopleInNeed": 3800 },
-    "Northern": { "ongoing": 10, "needed": 40, "completed": 25, "peopleInNeed": 6200 },
-    "Oti": { "ongoing": 5, "needed": 20, "completed": 18, "peopleInNeed": 2900 },
-    "Savannah": { "ongoing": 2, "needed": 35, "completed": 12, "peopleInNeed": 4500 },
-    "Upper East": { "ongoing": 7, "needed": 50, "completed": 28, "peopleInNeed": 7100 },
-    "Upper West": { "ongoing": 6, "needed": 48, "completed": 22, "peopleInNeed": 6800 },
-    "Volta": { "ongoing": 9, "needed": 28, "completed": 40, "peopleInNeed": 3600 },
-    "Western": { "ongoing": 14, "needed": 18, "completed": 55, "peopleInNeed": 2200 },
-    "Western North": { "ongoing": 6, "needed": 24, "completed": 20, "peopleInNeed": 3100 }
+    "Ahafo": {
+      "ongoing": 5,
+      "needed": 12,
+      "completed": 20,
+      "peopleInNeed": 1200
+    },
+    "Ashanti": {
+      "ongoing": 25,
+      "needed": 45,
+      "completed": 85,
+      "peopleInNeed": 5400
+    },
+    "Bono": {
+      "ongoing": 8,
+      "needed": 15,
+      "completed": 32,
+      "peopleInNeed": 2100
+    },
+    "Bono East": {
+      "ongoing": 4,
+      "needed": 18,
+      "completed": 15,
+      "peopleInNeed": 2500
+    },
+    "Central": {
+      "ongoing": 12,
+      "needed": 22,
+      "completed": 45,
+      "peopleInNeed": 3200
+    },
+    "Eastern": {
+      "ongoing": 15,
+      "needed": 30,
+      "completed": 50,
+      "peopleInNeed": 4100
+    },
+    "Greater Accra": {
+      "ongoing": 20,
+      "needed": 10,
+      "completed": 110,
+      "peopleInNeed": 800
+    },
+    "North East": {
+      "ongoing": 3,
+      "needed": 25,
+      "completed": 10,
+      "peopleInNeed": 3800
+    },
+    "Northern": {
+      "ongoing": 10,
+      "needed": 40,
+      "completed": 25,
+      "peopleInNeed": 6200
+    },
+    "Oti": {
+      "ongoing": 5,
+      "needed": 20,
+      "completed": 18,
+      "peopleInNeed": 2900
+    },
+    "Savannah": {
+      "ongoing": 2,
+      "needed": 35,
+      "completed": 12,
+      "peopleInNeed": 4500
+    },
+    "Upper East": {
+      "ongoing": 7,
+      "needed": 50,
+      "completed": 28,
+      "peopleInNeed": 7100
+    },
+    "Upper West": {
+      "ongoing": 6,
+      "needed": 48,
+      "completed": 22,
+      "peopleInNeed": 6800
+    },
+    "Volta": {
+      "ongoing": 9,
+      "needed": 28,
+      "completed": 40,
+      "peopleInNeed": 3600
+    },
+    "Western": {
+      "ongoing": 14,
+      "needed": 18,
+      "completed": 55,
+      "peopleInNeed": 2200
+    },
+    "Western North": {
+      "ongoing": 6,
+      "needed": 24,
+      "completed": 20,
+      "peopleInNeed": 3100
+    }
   },
   "districts": {
-    "Adansi Akrofuom": { "ongoing": 2, "needed": 5, "completed": 8, "peopleInNeed": 450 },
-    "Adansi Asokwa": { "ongoing": 1, "needed": 6, "completed": 10, "peopleInNeed": 520 },
-    "Adansi North": { "ongoing": 3, "needed": 4, "completed": 12, "peopleInNeed": 380 },
-    "Adansi South": { "ongoing": 2, "needed": 8, "completed": 7, "peopleInNeed": 610 },
-    "Afigya-Kwabre North": { "ongoing": 1, "needed": 3, "completed": 15, "peopleInNeed": 240 },
-    "Afigya-Kwabre South": { "ongoing": 4, "needed": 2, "completed": 20, "peopleInNeed": 120 },
-    "Ahafo-Ano North": { "ongoing": 0, "needed": 10, "completed": 5, "peopleInNeed": 850 },
-    "Ahafo-Ano South East": { "ongoing": 1, "needed": 12, "completed": 4, "peopleInNeed": 920 },
-    "Ahafo-Ano South West": { "ongoing": 2, "needed": 15, "completed": 3, "peopleInNeed": 1100 },
-    "Amansie Central": { "ongoing": 5, "needed": 5, "completed": 18, "peopleInNeed": 400 },
-    "Amansie South": { "ongoing": 3, "needed": 18, "completed": 6, "peopleInNeed": 1250 },
-    "Amansie West": { "ongoing": 2, "needed": 20, "completed": 10, "peopleInNeed": 1400 },
-    "Asante-Akim Central": { "ongoing": 1, "needed": 4, "completed": 14, "peopleInNeed": 320 },
-    "Asante-Akim North": { "ongoing": 2, "needed": 6, "completed": 9, "peopleInNeed": 480 },
-    "Asante-Akim South": { "ongoing": 1, "needed": 8, "completed": 11, "peopleInNeed": 590 },
-    "Asokore-Mampong": { "ongoing": 0, "needed": 2, "completed": 25, "peopleInNeed": 150 },
-    "Asokwa": { "ongoing": 1, "needed": 1, "completed": 30, "peopleInNeed": 100 },
-    "Atwima-Kwanwoma": { "ongoing": 3, "needed": 5, "completed": 12, "peopleInNeed": 420 },
-    "Atwima-Mponua": { "ongoing": 8, "needed": 25, "completed": 10, "peopleInNeed": 1800 },
-    "Atwima-Nwabiagya North": { "ongoing": 2, "needed": 10, "completed": 15, "peopleInNeed": 750 },
-    "Atwima-Nwabiagya South": { "ongoing": 1, "needed": 8, "completed": 14, "peopleInNeed": 620 },
-    "Bekwai": { "ongoing": 2, "needed": 4, "completed": 22, "peopleInNeed": 350 },
-    "Bosome Freho": { "ongoing": 1, "needed": 12, "completed": 5, "peopleInNeed": 880 },
-    "Bosomtwe": { "ongoing": 2, "needed": 5, "completed": 18, "peopleInNeed": 410 },
-    "Ejisu": { "ongoing": 1, "needed": 3, "completed": 25, "peopleInNeed": 280 },
-    "Ejura-Sekyedumase": { "ongoing": 4, "needed": 20, "completed": 15, "peopleInNeed": 1350 },
-    "Juaben": { "ongoing": 1, "needed": 5, "completed": 10, "peopleInNeed": 420 },
-    "Kumasi": { "ongoing": 0, "needed": 0, "completed": 150, "peopleInNeed": 50 },
-    "Kwabre East": { "ongoing": 2, "needed": 5, "completed": 20, "peopleInNeed": 380 },
-    "Kwadaso": { "ongoing": 1, "needed": 2, "completed": 35, "peopleInNeed": 120 },
-    "Mampong": { "ongoing": 2, "needed": 10, "completed": 18, "peopleInNeed": 720 },
-    "Obuasi": { "ongoing": 1, "needed": 1, "completed": 45, "peopleInNeed": 80 },
-    "Obuasi East": { "ongoing": 0, "needed": 2, "completed": 38, "peopleInNeed": 110 },
-    "Offinso": { "ongoing": 2, "needed": 12, "completed": 10, "peopleInNeed": 940 },
-    "Offinso North": { "ongoing": 3, "needed": 18, "completed": 8, "peopleInNeed": 1150 },
-    "Oforikrom": { "ongoing": 1, "needed": 1, "completed": 40, "peopleInNeed": 90 },
-    "Old Tafo": { "ongoing": 0, "needed": 1, "completed": 42, "peopleInNeed": 70 },
-    "Sekyere Afram Plains North": { "ongoing": 2, "needed": 30, "completed": 5, "peopleInNeed": 2100 },
-    "Sekyere Central": { "ongoing": 1, "needed": 20, "completed": 7, "peopleInNeed": 1450 },
-    "Sekyere East": { "ongoing": 2, "needed": 15, "completed": 12, "peopleInNeed": 980 },
-    "Sekyere Kumawu": { "ongoing": 1, "needed": 18, "completed": 8, "peopleInNeed": 1100 },
-    "Sekyere South": { "ongoing": 2, "needed": 10, "completed": 15, "peopleInNeed": 720 },
-    "Suame": { "ongoing": 1, "needed": 1, "completed": 50, "peopleInNeed": 60 }
+    "Adansi Akrofuom": {
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 8,
+      "peopleInNeed": 450
+    },
+    "Adansi Asokwa": {
+      "ongoing": 1,
+      "needed": 6,
+      "completed": 10,
+      "peopleInNeed": 520
+    },
+    "Adansi North": {
+      "ongoing": 3,
+      "needed": 4,
+      "completed": 12,
+      "peopleInNeed": 380
+    },
+    "Adansi South": {
+      "ongoing": 2,
+      "needed": 8,
+      "completed": 7,
+      "peopleInNeed": 610
+    },
+    "Afigya-Kwabre North": {
+      "ongoing": 1,
+      "needed": 3,
+      "completed": 15,
+      "peopleInNeed": 240
+    },
+    "Afigya-Kwabre South": {
+      "ongoing": 4,
+      "needed": 2,
+      "completed": 20,
+      "peopleInNeed": 120
+    },
+    "Ahafo-Ano North": {
+      "ongoing": 0,
+      "needed": 10,
+      "completed": 5,
+      "peopleInNeed": 850
+    },
+    "Ahafo-Ano South East": {
+      "ongoing": 1,
+      "needed": 12,
+      "completed": 4,
+      "peopleInNeed": 920
+    },
+    "Ahafo-Ano South West": {
+      "ongoing": 2,
+      "needed": 15,
+      "completed": 3,
+      "peopleInNeed": 1100
+    },
+    "Amansie Central": {
+      "ongoing": 5,
+      "needed": 5,
+      "completed": 18,
+      "peopleInNeed": 400
+    },
+    "Amansie South": {
+      "ongoing": 3,
+      "needed": 18,
+      "completed": 6,
+      "peopleInNeed": 1250
+    },
+    "Amansie West": {
+      "ongoing": 2,
+      "needed": 20,
+      "completed": 10,
+      "peopleInNeed": 1400
+    },
+    "Asante-Akim Central": {
+      "ongoing": 1,
+      "needed": 4,
+      "completed": 14,
+      "peopleInNeed": 320
+    },
+    "Asante-Akim North": {
+      "ongoing": 2,
+      "needed": 6,
+      "completed": 9,
+      "peopleInNeed": 480
+    },
+    "Asante-Akim South": {
+      "ongoing": 1,
+      "needed": 8,
+      "completed": 11,
+      "peopleInNeed": 590
+    },
+    "Asokore-Mampong": {
+      "ongoing": 0,
+      "needed": 2,
+      "completed": 25,
+      "peopleInNeed": 150
+    },
+    "Asokwa": {
+      "ongoing": 1,
+      "needed": 1,
+      "completed": 30,
+      "peopleInNeed": 100
+    },
+    "Atwima-Kwanwoma": {
+      "ongoing": 3,
+      "needed": 5,
+      "completed": 12,
+      "peopleInNeed": 420
+    },
+    "Atwima-Mponua": {
+      "ongoing": 8,
+      "needed": 25,
+      "completed": 10,
+      "peopleInNeed": 1800
+    },
+    "Atwima-Nwabiagya North": {
+      "ongoing": 2,
+      "needed": 10,
+      "completed": 15,
+      "peopleInNeed": 750
+    },
+    "Atwima-Nwabiagya South": {
+      "ongoing": 1,
+      "needed": 8,
+      "completed": 14,
+      "peopleInNeed": 620
+    },
+    "Bekwai": {
+      "ongoing": 2,
+      "needed": 4,
+      "completed": 22,
+      "peopleInNeed": 350
+    },
+    "Bosome Freho": {
+      "ongoing": 1,
+      "needed": 12,
+      "completed": 5,
+      "peopleInNeed": 880
+    },
+    "Bosomtwe": {
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 18,
+      "peopleInNeed": 410
+    },
+    "Ejisu": {
+      "ongoing": 1,
+      "needed": 3,
+      "completed": 25,
+      "peopleInNeed": 280
+    },
+    "Ejura-Sekyedumase": {
+      "ongoing": 4,
+      "needed": 20,
+      "completed": 15,
+      "peopleInNeed": 1350
+    },
+    "Juaben": {
+      "ongoing": 1,
+      "needed": 5,
+      "completed": 10,
+      "peopleInNeed": 420
+    },
+    "Kumasi": {
+      "ongoing": 0,
+      "needed": 0,
+      "completed": 150,
+      "peopleInNeed": 50
+    },
+    "Kwabre East": {
+      "ongoing": 2,
+      "needed": 5,
+      "completed": 20,
+      "peopleInNeed": 380
+    },
+    "Kwadaso": {
+      "ongoing": 1,
+      "needed": 2,
+      "completed": 35,
+      "peopleInNeed": 120
+    },
+    "Mampong": {
+      "ongoing": 2,
+      "needed": 10,
+      "completed": 18,
+      "peopleInNeed": 720
+    },
+    "Obuasi": {
+      "ongoing": 1,
+      "needed": 1,
+      "completed": 45,
+      "peopleInNeed": 80
+    },
+    "Obuasi East": {
+      "ongoing": 0,
+      "needed": 2,
+      "completed": 38,
+      "peopleInNeed": 110
+    },
+    "Offinso": {
+      "ongoing": 2,
+      "needed": 12,
+      "completed": 10,
+      "peopleInNeed": 940
+    },
+    "Offinso North": {
+      "ongoing": 3,
+      "needed": 18,
+      "completed": 8,
+      "peopleInNeed": 1150
+    },
+    "Oforikrom": {
+      "ongoing": 1,
+      "needed": 1,
+      "completed": 40,
+      "peopleInNeed": 90
+    },
+    "Old Tafo": {
+      "ongoing": 0,
+      "needed": 1,
+      "completed": 42,
+      "peopleInNeed": 70
+    },
+    "Sekyere Afram Plains North": {
+      "ongoing": 2,
+      "needed": 30,
+      "completed": 5,
+      "peopleInNeed": 2100
+    },
+    "Sekyere Central": {
+      "ongoing": 1,
+      "needed": 20,
+      "completed": 7,
+      "peopleInNeed": 1450
+    },
+    "Sekyere East": {
+      "ongoing": 2,
+      "needed": 15,
+      "completed": 12,
+      "peopleInNeed": 980
+    },
+    "Sekyere Kumawu": {
+      "ongoing": 1,
+      "needed": 18,
+      "completed": 8,
+      "peopleInNeed": 1100
+    },
+    "Sekyere South": {
+      "ongoing": 2,
+      "needed": 10,
+      "completed": 15,
+      "peopleInNeed": 720
+    },
+    "Suame": {
+      "ongoing": 1,
+      "needed": 1,
+      "completed": 50,
+      "peopleInNeed": 60
+    }
   }
 }
