@@ -1,5 +1,6 @@
 import { GhanaTubeWellMap } from "@/components/ghana-map";
 import { MapSection } from "@/components/map-section";
+import { AshantiImpactSection } from "@/components/ashanti-impact-section";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
         <GhanaTubeWellMap />
       </div>
       <MapSection />
+      <AshantiImpactSection />
     </main>
   );
 }
